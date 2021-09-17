@@ -8,8 +8,10 @@ public class CharacterMovement : MonoBehaviour
     int isWalkingHash;
     int danceHash;
     int isSleepHash;
+    int isSitHash;
     bool isDance = false;
     bool isSleep = false;
+    bool isSit = false;
     int lastMove = 1;
     
     // Start is called before the first frame update
@@ -20,6 +22,7 @@ public class CharacterMovement : MonoBehaviour
         isWalkingHash = Animator.StringToHash("isWalking");
         danceHash = Animator.StringToHash("dance");
         isSleepHash = Animator.StringToHash("isSleep");
+        isSitHash = Animator.StringToHash("isSit");
     }
 
     // Update is called once per frame
@@ -28,6 +31,7 @@ public class CharacterMovement : MonoBehaviour
         Walk();
         Dance();
         Sleep();
+        Sit();
     }
     void Walk()
     {
@@ -37,6 +41,7 @@ public class CharacterMovement : MonoBehaviour
         {
             isDance = false;
             animator.SetBool(isSleepHash, false);
+            animator.SetBool(isSitHash, false);
             animator.SetBool(isWalkingHash, true);
         }
 
@@ -98,6 +103,16 @@ public class CharacterMovement : MonoBehaviour
             isDance = false;
             isSleep = !isSleep;
             animator.SetBool(isSleepHash, isSleep);
+        }
+    }
+    void Sit()
+    {
+        bool keySit = Input.GetKeyDown("r");
+        if (keySit)
+        {
+            isDance = false;
+            isSit = !isSit;
+            animator.SetBool(isSitHash, isSit);
         }
     }
 }
