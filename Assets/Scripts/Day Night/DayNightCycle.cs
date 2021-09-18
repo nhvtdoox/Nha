@@ -73,7 +73,7 @@ public class DayNightCycle : MonoBehaviour
         }
 
         //lighting and reflections intensity
-        RenderSettings.ambientIntensity = lightingIntensityMultiplier.Evaluate(time);
+        //RenderSettings.ambientIntensity = lightingIntensityMultiplier.Evaluate(time);
         RenderSettings.reflectionIntensity = reflectionsIntensityMultiplier.Evaluate(time);
     }
     public void SetDurrationDayNightCycle(float i_dayLenght)
