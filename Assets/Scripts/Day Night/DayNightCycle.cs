@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DayNightCycle : MonoBehaviour
 {
-    [Range(0.0f,1.0f)]
+    [Range(0.0f, 1.0f)]
     public float time;
     public float fullDayLength;
     public float startTime = 0.4f;
@@ -27,13 +27,14 @@ public class DayNightCycle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeRate = 1.0f / fullDayLength;
+
         time = startTime;
     }
 
     // Update is called once per frame
     void Update()
     {
+        timeRate = 1.0f / fullDayLength;
         time += timeRate * Time.deltaTime;
 
         if (time >= 1.0f)
@@ -72,7 +73,15 @@ public class DayNightCycle : MonoBehaviour
         }
 
         //lighting and reflections intensity
-        //RenderSettings.ambientIntensity = lightingIntensityMultiplier.Evaluate(time);
+        RenderSettings.ambientIntensity = lightingIntensityMultiplier.Evaluate(time);
         RenderSettings.reflectionIntensity = reflectionsIntensityMultiplier.Evaluate(time);
+    }
+    public void SetDurrationDayNightCycle(float i_dayLenght)
+    {
+        fullDayLength = i_dayLenght;
+    }
+    public void StopDayNightCycle()
+    {
+        fullDayLength = 0;
     }
 }
