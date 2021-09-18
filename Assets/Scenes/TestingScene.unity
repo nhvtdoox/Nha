@@ -210,62 +210,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 1454441655061240128, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_Speed
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 1454441655061240128, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1454441655061240128, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_AutoRepath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1454441655061240128, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_Acceleration
-      value: 140
-      objectReference: {fileID: 0}
-    - target: {fileID: 1454441655061240128, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_AngularSpeed
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 1454441655061240128, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1454441655061240128, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_ObstacleAvoidanceType
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1454441655061240131, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_Size.y
-      value: 0.00050717243
-      objectReference: {fileID: 0}
-    - target: {fileID: 1454441655061240131, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_Size.z
-      value: 0.0049249004
-      objectReference: {fileID: 0}
-    - target: {fileID: 1454441655061240131, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_Center.x
-      value: 0.00007602147
-      objectReference: {fileID: 0}
-    - target: {fileID: 1454441655061240131, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_Center.y
-      value: 0.00024641375
-      objectReference: {fileID: 0}
-    - target: {fileID: 1454441655061240131, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_Center.z
-      value: -0.00014991296
-      objectReference: {fileID: 0}
     - target: {fileID: 1454441655061240135, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 1073742924}
-    - target: {fileID: 1454441655061240135, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1598800412443392001, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -337,10 +285,6 @@ PrefabInstance:
     - target: {fileID: 3378513710394128622, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
       propertyPath: m_Layer
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3406481277637991119, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3473728416138669214, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
       propertyPath: m_Layer
@@ -943,63 +887,6 @@ Transform:
   m_Father: {fileID: 1977836717}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -147.237, z: 0}
---- !u!1 &1512878379 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1796477941249197846, guid: 76a556258e332754abdd5c4c29c09360, type: 3}
-  m_PrefabInstance: {fileID: 202706120}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1512878384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512878379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce7a80d520cacc042b5fe14f373d8173, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MovingTurnSpeed: 360
-  m_StationaryTurnSpeed: 180
-  m_JumpPower: 12
-  m_GravityMultiplier: 2
-  m_RunCycleLegOffset: 0.2
-  m_MoveSpeedMultiplier: 1
-  m_AnimSpeedMultiplier: 1
-  m_GroundCheckDistance: 0.1
---- !u!136 &1512878386
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512878379}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!143 &1512878387
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512878379}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1680798633
 GameObject:
   m_ObjectHideFlags: 0

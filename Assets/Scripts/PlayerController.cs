@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private bool isSit = false;
     private int lastMove = 1;
 
-    private void Start()
+    private void Awake()
     {
         //agent.updateRotation = false;
         character = GetComponent<ThirdPersonCharacter>();
@@ -32,23 +32,23 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Walk();
+        //Debug.Log(animator.GetBool(isWalkingHash));
     }
 
     private void Walk()
     {
-        bool keyMove = Input.GetMouseButtonDown(0);
+        //bool keyMove = Input.GetMouseButtonDown(0);
 
-        if (keyMove)
+        if (Input.GetMouseButton(0))
         {
             isDance = false;
             animator.SetBool(isSleepHash, false);
-            animator.SetBool(isSitHash, false);
-            animator.SetBool(isWalkingHash, true);
-            Debug.Log(animator.GetBool(isWalkingHash));
+            animator.SetBool(isSitHash, false);  
+            animator.SetInteger("isWalking", 1);
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
-            {
+            {               
                 agent.SetDestination(hit.point);
             }
         }
@@ -66,7 +66,8 @@ public class PlayerController : MonoBehaviour
         else
         {
             character.Move(Vector3.zero, false, false);
-            animator.SetBool(isWalkingHash, false);
+            animator.SetInteger("isWalking", 0);
+            Debug.Log(animator.GetBool(isWalkingHash));
         }
     }
 }
