@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public class PlayerController : MonoBehaviour
 {
+    private ThirdPersonCharacter character;
     public Camera cam;
     public NavMeshAgent agent;
     private Animator animator;
@@ -17,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        //agent.updateRotation = false;
+        character = GetComponent<ThirdPersonCharacter>();
         animator = GetComponent<Animator>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
@@ -27,13 +31,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Walk(); 
+        Walk();
     }
 
     private void Walk()
     {
         bool keyMove = Input.GetMouseButtonDown(0);
-
 
         if (keyMove)
         {
@@ -49,12 +52,21 @@ public class PlayerController : MonoBehaviour
                 agent.SetDestination(hit.point);
             }
         }
+        
 
-        if (agent.remainingDistance == 0)
+        //if (agent.remainingDistance == 0)
+        //{
+        //    animator.SetBool(isWalkingHash, false);
+        //}
+
+        if (agent.remainingDistance > agent.stoppingDistance)
         {
+            character.Move(agent.desiredVelocity, false, false);
+        }
+        else
+        {
+            character.Move(Vector3.zero, false, false);
             animator.SetBool(isWalkingHash, false);
         }
-
-
     }
 }
