@@ -4,29 +4,28 @@ using UnityEngine;
 
 public class ChangeColor : MonoBehaviour
 {
-    public Renderer rend;
+    private Renderer rend;
     public Color hoverColor;
+    public float f = 3f;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
+        rend.material.EnableKeyword("_EMISSION");
     }
 
     // The mesh goes red when the mouse is over it...
     void OnMouseEnter()
     {
         rend.material.color = hoverColor;
-    }
-
-    // ...the red fades out to cyan as the mouse is held over...
-    void OnMouseOver()
-    {
-        rend.material.color -= new Color(0.1F, 0, 0) * Time.deltaTime;
+        Color c = hoverColor * f;
+        rend.material.SetColor("_EmissionColor", c);
     }
 
     // ...and the mesh finally turns white when the mouse moves away.
     void OnMouseExit()
     {
         rend.material.color = Color.white;
+        rend.material.SetColor("_EmissionColor", Color.black);
     }
 }
