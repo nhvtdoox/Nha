@@ -92,7 +92,10 @@ public class AudioManager : MonoBehaviour
             currentClip = (currentClip + audioClips.Count - 1) % audioClips.Count;
 
         audioSource.clip = audioClips[currentClip];
-        audioSource.Play();
+        if (!isPaused)
+        {
+            audioSource.Play();
+        }
         ShowCurrentTitle();
     }
 

@@ -9,25 +9,19 @@ public class UIController : MonoBehaviour
     [SerializeField] Button pauseButton;
     [SerializeField] Button taskPlayButton;
     [SerializeField] Button taskPauseButton;
-    [SerializeField] Button MusicPlaylist;
     public void togglePlayButton()
     {
         playButton.gameObject.SetActive(!playButton.IsActive());
         pauseButton.gameObject.SetActive(!pauseButton.IsActive());
     }
 
-    public void toggleFullScreen(bool fullscreen)
+    public void FullScreen()
     {
-        if (fullscreen)
-        {
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
-            MusicPlaylist.interactable = false;
-        }
-        else
-        {
-            Screen.fullScreenMode = FullScreenMode.Windowed;
-            MusicPlaylist.interactable = true;
-        }
+    }
+    public void WindowScreen()
+    {
+        Screen.fullScreenMode = FullScreenMode.Windowed;
     }
     public void toggleTaskPlayButton()
     {
