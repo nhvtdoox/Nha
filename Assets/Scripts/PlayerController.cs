@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Walk();
+        Dance();
+        Sleep();
+        Sit();
         //Debug.Log(animator.GetBool(isWalkingHash));
     }
 
@@ -67,7 +70,72 @@ public class PlayerController : MonoBehaviour
         {
             character.Move(Vector3.zero, false, false);
             animator.SetInteger("isWalking", 0);
-            Debug.Log(animator.GetBool(isWalkingHash));
+            //Debug.Log(animator.GetBool(isWalkingHash));
+        }
+    }
+    void Dance()
+    {
+        bool keyDance = Input.GetKeyDown("q");
+        if (keyDance)
+        {
+            isDance = !isDance;
+            animator.SetInteger(danceHash, lastMove);
+        }
+        if (isDance)
+        {
+            DanceMoves();
+        }
+        else if (!isDance)
+        {
+            animator.SetInteger(danceHash, 0);
+        }
+    }
+    void DanceMoves()
+    {
+        if (Input.GetKey("1"))
+        {
+            animator.SetInteger(danceHash, 1);
+            lastMove = 1;
+        }
+        if (Input.GetKey("2"))
+        {
+            animator.SetInteger(danceHash, 2);
+            lastMove = 2;
+        }
+        if (Input.GetKey("3"))
+        {
+            animator.SetInteger(danceHash, 3);
+            lastMove = 3;
+        }
+        if (Input.GetKey("4"))
+        {
+            animator.SetInteger(danceHash, 4);
+            lastMove = 4;
+        }
+        if (Input.GetKey("5"))
+        {
+            animator.SetInteger(danceHash, 5);
+            lastMove = 5;
+        }
+    }
+    void Sleep()
+    {
+        bool keySleep = Input.GetKeyDown("e");
+        if (keySleep)
+        {
+            isDance = false;
+            isSleep = !isSleep;
+            animator.SetBool(isSleepHash, isSleep);
+        }
+    }
+    void Sit()
+    {
+        bool keySit = Input.GetKeyDown("r");
+        if (keySit)
+        {
+            isDance = false;
+            isSit = !isSit;
+            animator.SetBool(isSitHash, isSit);
         }
     }
 }

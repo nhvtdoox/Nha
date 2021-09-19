@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip[] audioClips;
     private int currentClip;
     [SerializeField] AudioSource audioSource;
+    [SerializeField] Slider slider;
     public Text clipTitle;
     public Text clipTime;
 
@@ -16,6 +17,7 @@ public class AudioManager : MonoBehaviour
     private int playTime;
     private int seconds;
     private int minutes;
+    private float sliderValue;
 
     private bool active = false;
 
@@ -23,7 +25,8 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         active = true;
-        PlayMusic();
+        //PlayMusic();
+        
     }
 
     public void PlayMusic()
@@ -54,6 +57,8 @@ public class AudioManager : MonoBehaviour
             else
                 NextClip();
         }
+
+        UpdateSilder();
     }    
 
     public void NextClip()
@@ -67,6 +72,7 @@ public class AudioManager : MonoBehaviour
         audioSource.clip = audioClips[currentClip];
         audioSource.Play();
         ShowCurrentTitle();
+        sliderValue = 1.0f / fullLength;
     }
 
     public void PreviousClip()
@@ -83,10 +89,10 @@ public class AudioManager : MonoBehaviour
         ShowCurrentTitle();
     }
 
-    public void StopMusic()
+    public void PauseMusic()
     {
         active = false;
-        audioSource.Stop();
+        audioSource.Pause();
     }
 
     public void MuteMusic()
@@ -105,5 +111,25 @@ public class AudioManager : MonoBehaviour
         seconds = playTime % 60;
         minutes = (playTime/60) % 60;
         //clipTime.text = minutes + ":" + seconds.ToString("D2") + "/"+((fullLength / 60) % 60) + ":"+(fullLength%60).ToString("D2");
+    }
+
+    void UpdateSilder()
+    {
+        //Debug.Log(fullLength);
+        //Debug.Log(playTime);
+        slider.value += sliderValue * Time.deltaTime;
+        if (slider.value == slider.maxValue)
+        {
+            audioSource.Stop();
+            slider.value = slider.minValue;
+        }
+        //Debug.Log(slider.value);
+    }
+
+    public void SetSilder(float i_slider)
+    {
+        audioSource.time = i_slider * fullLength;
+        //slider.value += sliderValue * Time.deltaTime;
+        //Debug.Log(slider.value);
     }
 }
