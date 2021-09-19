@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private int isWalkingHash;
     private int danceHash;
     private int isSleepHash;
-    //private int isSitHash;
+    private int isSitHash;
     private bool isDance = false;
     private bool isSleep = false;
     private bool isSit = false;
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
         isWalkingHash = Animator.StringToHash("isWalking");
         danceHash = Animator.StringToHash("dance");
         isSleepHash = Animator.StringToHash("isSleep");
-        //isSitHash = Animator.StringToHash("isSit");
+        isSitHash = Animator.StringToHash("isSit");
     }
 
     private void Update()
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
         Walk();
         Dance();
         Sleep();
-        //Sit();
+        Sit();
     }
 
     private void Walk()
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
         {
             isDance = false;
             animator.SetBool(isSleepHash, false);
-            //animator.SetBool(isSitHash, false);  
+            animator.SetBool(isSitHash, false);  
             animator.SetInteger("isWalking", 1);
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -55,6 +55,12 @@ public class PlayerController : MonoBehaviour
             }
         }
         
+
+        //if (agent.remainingDistance == 0)
+        //{
+        //    animator.SetBool(isWalkingHash, false);
+        //}
+
         if (agent.remainingDistance > agent.stoppingDistance)
         {
             character.Move(agent.desiredVelocity, false, false);
@@ -121,15 +127,15 @@ public class PlayerController : MonoBehaviour
             animator.SetBool(isSleepHash, isSleep);
         }
     }
-    //void Sit()
-    //{
-    //    bool keySit = Input.GetKeyDown("r");
-    //    if (keySit)
-    //    {
-    //        isDance = false;
-    //        isSit = !isSit;
-    //        animator.SetBool(isSitHash, isSit);
-    //    }
+    void Sit()
+    {
+        bool keySit = Input.GetKeyDown("r");
+        if (keySit)
+        {
+            isDance = false;
+            isSit = !isSit;
+            animator.SetBool(isSitHash, isSit);
+        }
 
-    //}
+    }
 }
