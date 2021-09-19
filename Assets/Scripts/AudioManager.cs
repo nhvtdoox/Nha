@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] AudioClip[] audioClips;
-    private int currentClip;
     [SerializeField] AudioSource audioSource;
     [SerializeField] Slider slider;
+
     public Text clipTitle;
     public Text clipTime;
 
@@ -17,81 +14,74 @@ public class AudioManager : MonoBehaviour
     private int playTime;
     private int seconds;
     private int minutes;
-    private float sliderValue;
 
-    private bool active = false;
+    private bool isPaused = false;
+    private bool random = false;
+    private int currentClip = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        active = true;
-        //PlayMusic();
-        
+        audioSource.Stop();
+
     }
 
     public void PlayMusic()
-    {        
-        if (audioSource.isPlaying)
+    {
+        if (isPaused)
         {
-            return;
+            audioSource.Play();
         }
-
-        currentClip--;
-        if (currentClip < 0)
+        else if (!audioSource.isPlaying)
         {
-            currentClip = audioClips.Length - 1;
-        }        
-        
+            NextClip();
+        }
     }
 
     private void Update()
     {
-        
-        if (active)
+        if (!isPaused && audioSource.isPlaying)
         {
-            if (audioSource.isPlaying)
-            {
-                playTime = (int)audioSource.time;
-                ShowPlayTime();
-            }
-            else
-                NextClip();
+            playTime = (int)audioSource.time;
+            UpdateSlider();
+            //ShowPlayTime();
         }
-
-        UpdateSilder();
-    }    
+    }
 
     public void NextClip()
-    {        
+    {
         audioSource.Stop();
-        currentClip++;
-        if (currentClip > audioClips.Length - 1)
+        if (random)
         {
-            currentClip = 0;
+            currentClip = (currentClip + Random.Range(1, audioClips.Length)) % audioClips.Length;
         }
+        else
+            currentClip = (currentClip + 1) % audioClips.Length;
+
         audioSource.clip = audioClips[currentClip];
         audioSource.Play();
-        ShowCurrentTitle();
-        sliderValue = 1.0f / fullLength;
+        //ShowCurrentTitle();
+
     }
 
     public void PreviousClip()
     {
         audioSource.Stop();
-        currentClip--;
-        if (currentClip <0)
+        if (random)
         {
-            currentClip = audioClips.Length - 1;
+            currentClip = (currentClip + Random.Range(1, audioClips.Length)) % audioClips.Length;
         }
+        else
+            currentClip = (currentClip + audioClips.Length - 1) % audioClips.Length;
 
         audioSource.clip = audioClips[currentClip];
         audioSource.Play();
-        ShowCurrentTitle();
+        //ShowCurrentTitle();
     }
 
     public void PauseMusic()
     {
-        active = false;
+        isPaused = true;
         audioSource.Pause();
     }
 
@@ -109,27 +99,28 @@ public class AudioManager : MonoBehaviour
     void ShowPlayTime()
     {
         seconds = playTime % 60;
-        minutes = (playTime/60) % 60;
+        minutes = (playTime / 60) % 60;
         //clipTime.text = minutes + ":" + seconds.ToString("D2") + "/"+((fullLength / 60) % 60) + ":"+(fullLength%60).ToString("D2");
     }
 
-    void UpdateSilder()
+    void UpdateSlider()
     {
-        //Debug.Log(fullLength);
-        //Debug.Log(playTime);
-        slider.value += sliderValue * Time.deltaTime;
-        if (slider.value == slider.maxValue)
+        slider.value = playTime * 1.0f / fullLength;
+
+        if (slider.value >= slider.maxValue)
         {
             audioSource.Stop();
             slider.value = slider.minValue;
         }
-        //Debug.Log(slider.value);
     }
 
     public void SetSilder(float i_slider)
     {
         audioSource.time = i_slider * fullLength;
-        //slider.value += sliderValue * Time.deltaTime;
-        //Debug.Log(slider.value);
+    }
+
+    public void RandomMusic()
+    {
+        random = !random;
     }
 }

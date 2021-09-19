@@ -6,22 +6,24 @@ using TMPro;
 
 public class TimerManager : MonoBehaviour
 {
-    private float currentTime=0f;
-    private float startingTime=10f;
     [SerializeField] TextMeshProUGUI countdownText;
-    private bool active = false;
     [SerializeField] TMP_InputField minutesStr;
+
+    private float currentTime = 0f;
+    private float startingTime = 10f;
+    private bool active = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentTime = startingTime;
+        
     }
 
     public void SetTimer()
     {
-        int minutes;
+        int minutes=0;
         int.TryParse(minutesStr.text, out minutes);
+
         if (minutes > 999)
         {
             minutes = 999;
@@ -30,6 +32,7 @@ public class TimerManager : MonoBehaviour
         {
             minutes = 1;
         }
+
         startingTime = minutes * 60;
         currentTime = startingTime;
         active = true;
@@ -46,13 +49,22 @@ public class TimerManager : MonoBehaviour
         if (active)
         {
             currentTime -= Time.deltaTime;
-            countdownText.text = (currentTime/60).ToString("0");
-            //Debug.Log(currentTime);
+            countdownText.text = (currentTime / 60).ToString("0");
             if (currentTime <= 0)
             {
                 currentTime = 0;
                 active = false;
             }
         }
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
     }
 }
