@@ -2,7 +2,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
-
+using UnityEngine.Networking;
+using UnityEditor;
+using System.Collections;
+using System.IO;
+#if UNITY_STANDALONE_WIN
+using AnotherFileBrowser.Windows;
+#endif
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] List<AudioClip> audioClips;
@@ -20,12 +26,13 @@ public class AudioManager : MonoBehaviour
     private bool isPaused = false;
     private bool random = false;
     private int currentClip = 0;
+    private string path;
 
     // Start is called before the first frame update
     void Start()
     {
         audioSource.Stop();
-
+        //GetAudioFiles();
     }
 
     public void PlayMusic()
@@ -64,7 +71,10 @@ public class AudioManager : MonoBehaviour
             currentClip = (currentClip + 1) % audioClips.Count;
 
         audioSource.clip = audioClips[currentClip];
-        audioSource.Play();
+        if (!isPaused)
+        { 
+            audioSource.Play();
+        }
         ShowCurrentTitle();
 
     }
@@ -128,7 +138,7 @@ public class AudioManager : MonoBehaviour
     void UpdateSlider()
     {
         //Debug.Log(track.IsUserControl());
-        if(!track.IsUserControl())
+        if (!track.IsUserControl())
         {
             slider.value = playTime / fullLength;
         }
@@ -149,5 +159,52 @@ public class AudioManager : MonoBehaviour
     public void SetAudioSource(float i_sliderTime)
     {
         audioSource.time = i_sliderTime;
-    }    
+    }
+    public void GetAudioFiles()
+    {
+        //string path = EditorUtility.OpenFolderPanel("Select foler", "", "");
+        OpenFolderBrowser();
+        DirectoryInfo info = new DirectoryInfo(path);
+        FileInfo[] fileInfo = info.GetFiles("*.mp3");
+        foreach (FileInfo file in fileInfo)
+        {
+            StartCoroutine(LoadAudioFiles(file));
+        }
+        //UnityWebRequest web = UnityWebRequestMultimedia.GetAudioClip("file://"+path,AudioType.MPEG);
+    }
+
+    IEnumerator LoadAudioFiles(FileInfo songFile)
+    {
+        string songName = songFile.FullName.ToString();
+        string url = string.Format("file://{0}", songName);
+        using (UnityWebRequest web = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG))
+        {
+            yield return web.SendWebRequest();
+            if (!(web.result == UnityWebRequest.Result.ConnectionError) && !(web.result == UnityWebRequest.Result.ProtocolError))
+            {
+                AudioClip clip = DownloadHandlerAudioClip.GetContent(web);
+                if (clip != null)
+                {
+                    clip.name = Path.GetFileNameWithoutExtension(songName);
+                    audioClips.Add(clip);
+                }
+            }
+        }
+    }
+    private void OpenFolderBrowser()
+    {
+#if UNITY_STANDALONE_WIN
+        var bp = new BrowserProperties();
+        bp.filter = "txt files (*.txt)|*.txt";
+        bp.filterIndex = 0;
+
+        new FileBrowser().OpenFolderBrowser(bp, result =>
+        {
+            path = result;
+            //resultText.text = result;
+            //Debug.Log(result);
+        });
+#endif
+    }
 }
+

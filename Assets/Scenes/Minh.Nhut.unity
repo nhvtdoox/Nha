@@ -374,7 +374,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 21660208}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1209858267}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: GetAudioFiles
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &21660208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2032,6 +2044,7 @@ GameObject:
   m_Component:
   - component: {fileID: 470174392}
   - component: {fileID: 470174391}
+  - component: {fileID: 470174393}
   m_Layer: 0
   m_Name: UIController
   m_TagString: Untagged
@@ -2069,6 +2082,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &470174393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470174390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91a4ed4245e750543a43dc27f383931b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lights:
+  - {fileID: 1730946460}
+  - {fileID: 961650423}
+  - {fileID: 2040836091}
+  - {fileID: 406633247}
 --- !u!1 &494152706
 GameObject:
   m_ObjectHideFlags: 0
@@ -4560,6 +4590,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 21491f8d25ef43f4c80897dc7990a9f1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 21491f8d25ef43f4c80897dc7990a9f1, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -6643,13 +6677,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1378573951}
-  m_LocalRotation: {x: 0.38302222, y: 0.38302222, z: -0.17860618, w: 0.82139385}
+  m_LocalRotation: {x: 0.46556237, y: -0.36259598, z: -0.21709529, w: -0.7775896}
   m_LocalPosition: {x: 0, y: 1.9, z: -0.14999962}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314761838}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 50, y: 50, z: 0}
+  m_LocalEulerAnglesHint: {x: 298.18, y: 50, z: 0}
 --- !u!1 &1381746315
 GameObject:
   m_ObjectHideFlags: 0
@@ -9534,7 +9568,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 470174391}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: toggleFullScreen
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &1923059406
 GameObject:
@@ -10399,7 +10445,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &2040836091
 Light:
   m_ObjectHideFlags: 0
