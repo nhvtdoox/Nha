@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
         {
             isDance = false;
             animator.SetBool(isSleepHash, false);
-            //animator.SetBool(isSitHash, false);  
+            animator.SetBool(isSitHash, false);
             animator.SetInteger("isWalking", 1);
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
         if (agent.remainingDistance > agent.stoppingDistance)
         {
             character.Move(agent.desiredVelocity, false, false);
+
         }
         else
         {
