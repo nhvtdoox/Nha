@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
         Dance();
         Sleep();
         Sit();
-        //Debug.Log(animator.GetBool(isWalkingHash));
     }
 
     private void Walk()
@@ -137,5 +136,6 @@ public class PlayerController : MonoBehaviour
             isSit = !isSit;
             animator.SetBool(isSitHash, isSit);
         }
+
     }
 }
