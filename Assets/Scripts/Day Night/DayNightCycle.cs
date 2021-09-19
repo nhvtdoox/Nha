@@ -63,14 +63,14 @@ public class DayNightCycle : MonoBehaviour
             sun.gameObject.SetActive(true);
         }
         //enable/ disable moon
-        if (moon.intensity == 0 && moon.gameObject.activeInHierarchy)
-        {
-            moon.gameObject.SetActive(false);
-        }
-        else if (moon.intensity > 0 && !moon.gameObject.activeInHierarchy)
-        {
-            moon.gameObject.SetActive(true);
-        }
+        //if (moon.intensity == 0 && moon.gameObject.activeInHierarchy)
+        //{
+        //    moon.gameObject.SetActive(false);
+        //}
+        //else if (moon.intensity > 0 && !moon.gameObject.activeInHierarchy)
+        //{
+        //    moon.gameObject.SetActive(true);
+        //}
 
         //lighting and reflections intensity
         //RenderSettings.ambientIntensity = lightingIntensityMultiplier.Evaluate(time);
