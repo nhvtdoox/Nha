@@ -1,17 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] AudioClip[] audioClips;
+    [SerializeField] List<AudioClip> audioClips;
     [SerializeField] AudioSource audioSource;
     [SerializeField] Slider slider;
+    [SerializeField] TextMeshProUGUI clipTitle;
+    [SerializeField] Track track;
+    //public Text clipTime;
 
-    public Text clipTitle;
-    public Text clipTime;
-
-    private int fullLength;
-    private int playTime;
+    private float fullLength;
+    private float playTime;
     private int seconds;
     private int minutes;
 
@@ -31,6 +33,7 @@ public class AudioManager : MonoBehaviour
         if (isPaused)
         {
             audioSource.Play();
+            isPaused = false;
         }
         else if (!audioSource.isPlaying)
         {
@@ -42,7 +45,7 @@ public class AudioManager : MonoBehaviour
     {
         if (!isPaused && audioSource.isPlaying)
         {
-            playTime = (int)audioSource.time;
+            playTime = audioSource.time;
             UpdateSlider();
             //ShowPlayTime();
         }
@@ -51,32 +54,36 @@ public class AudioManager : MonoBehaviour
     public void NextClip()
     {
         audioSource.Stop();
+        audioSource.time = 0.0f;
+        slider.value = 0.0f;
         if (random)
         {
-            currentClip = (currentClip + Random.Range(1, audioClips.Length)) % audioClips.Length;
+            currentClip = (currentClip + Random.Range(1, audioClips.Count)) % audioClips.Count;
         }
         else
-            currentClip = (currentClip + 1) % audioClips.Length;
+            currentClip = (currentClip + 1) % audioClips.Count;
 
         audioSource.clip = audioClips[currentClip];
         audioSource.Play();
-        //ShowCurrentTitle();
+        ShowCurrentTitle();
 
     }
 
     public void PreviousClip()
     {
         audioSource.Stop();
+        audioSource.time = 0.0f;
+        slider.value = 0.0f;
         if (random)
         {
-            currentClip = (currentClip + Random.Range(1, audioClips.Length)) % audioClips.Length;
+            currentClip = (currentClip + Random.Range(1, audioClips.Count)) % audioClips.Count;
         }
         else
-            currentClip = (currentClip + audioClips.Length - 1) % audioClips.Length;
+            currentClip = (currentClip + audioClips.Count - 1) % audioClips.Count;
 
         audioSource.clip = audioClips[currentClip];
         audioSource.Play();
-        //ShowCurrentTitle();
+        ShowCurrentTitle();
     }
 
     public void PauseMusic()
@@ -92,35 +99,55 @@ public class AudioManager : MonoBehaviour
 
     void ShowCurrentTitle()
     {
-        //clipTitle.text = audioSource.clip.name;
+        clipTitle.text = audioSource.clip.name;
         fullLength = (int)audioSource.clip.length;
     }
 
     void ShowPlayTime()
     {
-        seconds = playTime % 60;
-        minutes = (playTime / 60) % 60;
+        //seconds = playTime % 60;
+        //minutes = (playTime / 60) % 60;
         //clipTime.text = minutes + ":" + seconds.ToString("D2") + "/"+((fullLength / 60) % 60) + ":"+(fullLength%60).ToString("D2");
     }
+    public void RandomMusic(bool isRandom)
+    {
+        random = isRandom;
+    }
+    //void UpdateSlider()
+    //{
+    //    if (!slider.isUserControl)
+    //    {
+    //        slider.value = audioManager.GetPlayTime() / audioManager.GetFullLength();
+    //    }
 
+    //    if (slider.value >= slider.maxValue)
+    //    {
+    //        audioManager.NextClip();
+    //    }
+    //}
     void UpdateSlider()
     {
-        slider.value = playTime * 1.0f / fullLength;
+        //Debug.Log(track.IsUserControl());
+        if(!track.IsUserControl())
+        {
+            slider.value = playTime / fullLength;
+        }
 
         if (slider.value >= slider.maxValue)
         {
-            audioSource.Stop();
-            slider.value = slider.minValue;
+            NextClip();
         }
     }
-
-    public void SetSilder(float i_slider)
+    public float GetPlayTime()
     {
-        audioSource.time = i_slider * fullLength;
+        return playTime;
     }
-
-    public void RandomMusic()
+    public float GetFullLength()
     {
-        random = !random;
+        return fullLength;
     }
+    public void SetAudioSource(float i_sliderTime)
+    {
+        audioSource.time = i_sliderTime;
+    }    
 }
