@@ -1,13 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class TimerManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI countdownText;
     [SerializeField] TMP_InputField minutesStr;
+    [SerializeField] TMP_InputField taskNameInput;
+    [SerializeField] TextMeshProUGUI taskNamePaste;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip timeOutSound;
+    [SerializeField] TextMeshProUGUI realTime;
 
     private float currentTime = 0f;
     private float startingTime = 10f;
@@ -16,7 +20,7 @@ public class TimerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(ShowRealTime());
     }
 
     public void SetTimer()
@@ -53,6 +57,7 @@ public class TimerManager : MonoBehaviour
             if (currentTime <= 0)
             {
                 currentTime = 0;
+                PlayTimeOutSound();
                 active = false;
             }
         }
@@ -60,11 +65,33 @@ public class TimerManager : MonoBehaviour
 
     public void PauseGame()
     {
-        Time.timeScale = 0;
+        active = false;
     }
+
 
     public void ResumeGame()
     {
-        Time.timeScale = 1;
+        active = true;
+    }
+
+    public void SetTask()
+    {
+        taskNamePaste.text = taskNameInput.text;
+
+    }
+
+    public void PlayTimeOutSound()
+    {
+        audioSource.clip = timeOutSound;
+        audioSource.Play();
+    }
+
+    IEnumerator ShowRealTime()
+    {
+        while (true)
+        {
+            realTime.text = DateTime.Now.ToString("HH:mm");
+            yield return new WaitForSeconds(60);
+        }
     }
 }
