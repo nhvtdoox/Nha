@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChangeColor : MonoBehaviour
 {
-    public Renderer rend;
+    private Renderer rend;
     public Color hoverColor;
 
     void Start()
