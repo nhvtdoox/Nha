@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/copy of Minh.Nhut.unity
+    guid: a106aab39338dde4db2e799a80a3328d
   m_configObjects: {}

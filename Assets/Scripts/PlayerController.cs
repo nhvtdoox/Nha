@@ -11,10 +11,8 @@ public class PlayerController : MonoBehaviour
     private int isWalkingHash;
     private int danceHash;
     private int isSleepHash;
-    private int isSitHash;
     private bool isDance = false;
     private bool isSleep = false;
-    private bool isSit = false;
     private int lastMove = 1;
 
     private void Awake()
@@ -45,7 +43,6 @@ public class PlayerController : MonoBehaviour
         {
             isDance = false;
             animator.SetBool(isSleepHash, false);
-            animator.SetBool(isSitHash, false);
             animator.SetInteger("isWalking", 1);
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
