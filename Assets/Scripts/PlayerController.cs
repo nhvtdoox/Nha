@@ -11,8 +11,10 @@ public class PlayerController : MonoBehaviour
     private int isWalkingHash;
     private int danceHash;
     private int isSleepHash;
+    private int isSitHash;
     private bool isDance = false;
     private bool isSleep = false;
+    private bool isSit = false;
     private int lastMove = 1;
 
     private void Awake()
@@ -24,7 +26,7 @@ public class PlayerController : MonoBehaviour
         isWalkingHash = Animator.StringToHash("isWalking");
         danceHash = Animator.StringToHash("dance");
         isSleepHash = Animator.StringToHash("isSleep");
-        //isSitHash = Animator.StringToHash("isSit");
+        isSitHash = Animator.StringToHash("isSit");
     }
 
     private void Update()
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour
         Walk();
         Dance();
         Sleep();
-        //Sit();
+        Sit();
     }
 
     private void Walk()
@@ -43,11 +45,12 @@ public class PlayerController : MonoBehaviour
         {
             isDance = false;
             animator.SetBool(isSleepHash, false);
+            animator.SetBool(isSitHash, false);
             animator.SetInteger("isWalking", 1);
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
-            {               
+            {
                 agent.SetDestination(hit.point);
             }
         }
@@ -55,7 +58,6 @@ public class PlayerController : MonoBehaviour
         if (agent.remainingDistance > agent.stoppingDistance)
         {
             character.Move(agent.desiredVelocity, false, false);
-
         }
         else
         {
@@ -63,12 +65,17 @@ public class PlayerController : MonoBehaviour
             animator.SetInteger("isWalking", 0);
         }
     }
-    void Dance()
+
+    private void Dance()
     {
-        bool keyDance = Input.GetKeyDown("q");
+        bool keyDance = Input.GetKeyDown("f1");
         if (keyDance)
         {
             isDance = !isDance;
+            isSit = false;
+            isSleep = false;
+            animator.SetBool(isSleepHash, isSleep);
+            animator.SetBool(isSitHash, isSit);
             animator.SetInteger(danceHash, lastMove);
         }
         if (isDance)
@@ -80,7 +87,8 @@ public class PlayerController : MonoBehaviour
             animator.SetInteger(danceHash, 0);
         }
     }
-    void DanceMoves()
+
+    private void DanceMoves()
     {
         if (Input.GetKey("1"))
         {
@@ -108,25 +116,31 @@ public class PlayerController : MonoBehaviour
             lastMove = 5;
         }
     }
-    void Sleep()
+
+    private void Sleep()
     {
-        bool keySleep = Input.GetKeyDown("e");
+        bool keySleep = Input.GetKeyDown("f3");
         if (keySleep)
         {
             isDance = false;
+            isSit = false;
+
             isSleep = !isSleep;
+            animator.SetBool(isSleepHash, isSleep);
+            animator.SetBool(isSitHash, isSit);
+        }
+    }
+
+    private void Sit()
+    {
+        bool keySit = Input.GetKeyDown("f2");
+        if (keySit)
+        {
+            isDance = false;
+            isSleep = false;
+            isSit = !isSit;
+            animator.SetBool(isSitHash, isSit);
             animator.SetBool(isSleepHash, isSleep);
         }
     }
-    //void Sit()
-    //{
-    //    bool keySit = Input.GetKeyDown("r");
-    //    if (keySit)
-    //    {
-    //        isDance = false;
-    //        isSit = !isSit;
-    //        animator.SetBool(isSitHash, isSit);
-    //    }
-
-    //}
 }
