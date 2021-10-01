@@ -1,5 +1,4 @@
-# FinalGameDev
-## Nhà
+# Nhà
  Final Project
  - Lê Ngọc Minh - 18125140
  - Đỗ Minh Nhựt - 18125105
